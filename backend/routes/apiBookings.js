@@ -72,6 +72,7 @@ api.get("/available_hours", async (req, res) => {
 
 api.post("/booking", verifyToken, async (req, res) => {
   const { client_id, worker_id, date, hour } = req.body;
+  console.log(req.body);
   try {
     if (!worker_id) {
       return res.status(400).json({ message: "Missing Worker ID" });
@@ -87,10 +88,16 @@ api.post("/booking", verifyToken, async (req, res) => {
     }
 
     const connection = await connectToDatabase();
+    console.log(date);
 
     const [result] = await connection.query(
       "INSERT INTO bookings (worker_id, client_id, date, time, status) VALUES (?, ?, ?, ?, ?)",
       [worker_id, client_id, date, hour, "PENDING"]
+    );
+
+    await connection.query(
+      "INSERT INTO workers_notifications (worker_id, message, read_notification, created_at) VALUES (?, ?, 0, NOW())",
+      [worker_id, `New booking request for ${date} at ${hour}.`]
     );
 
     console.log(
@@ -127,12 +134,17 @@ api.get("/client_bookings", verifyToken, async (req, res) => {
     console.log("[GET] /book/booking - Connected to database");
 
     const [bookings] = await connection.query(
-      `select b.id,w.name as worker_name,b.date,b.time,b.status,s.service_name from bookings b
-          inner join workers w
-          on b.worker_id = w.id
-          inner join services s
-          on s.id=w.service_id
-          where b.client_id = ?;`,
+      `SELECT 
+        b.id,
+        w.name AS worker_name,
+        DATE_FORMAT(b.date, '%Y-%m-%d') AS date,
+        DATE_FORMAT(b.time, '%H:%i') AS time,
+        b.status,
+        s.service_name
+      FROM bookings b
+      INNER JOIN workers w ON b.worker_id = w.id
+      INNER JOIN services s ON s.id = w.service_id
+      WHERE b.client_id = ?;`,
       [client_id]
     );
 
@@ -143,7 +155,7 @@ api.get("/client_bookings", verifyToken, async (req, res) => {
     // Format date and time for each booking
     const formattedBookings = bookings.map((b) => ({
       ...b,
-      date: b.date ? b.date.toISOString().split("T")[0] : "",
+      date: b.date,
       time: b.time ? b.time.slice(0, 5) : "",
     }));
 
@@ -173,13 +185,20 @@ api.get("/worker_bookings", verifyToken, async (req, res) => {
     console.log("[GET] /book/worker_bookings - Connected to database");
 
     const [bookings] = await connection.query(
-      `SELECT b.id, c.name AS client_name, b.date, b.time, b.status, s.service_name
+      `SELECT 
+        b.id, 
+        c.name AS client_name, 
+        DATE_FORMAT(b.date, '%Y-%m-%d') AS date, 
+        DATE_FORMAT(b.time, '%H:%i') AS time, 
+        b.status, 
+        s.service_name
        FROM bookings b
        INNER JOIN clients c ON b.client_id = c.id
        INNER JOIN services s ON s.id = (SELECT service_id FROM workers WHERE id = b.worker_id)
        WHERE b.worker_id = ?;`,
       [worker_id]
     );
+    console.log(bookings);
 
     console.log(
       `[GET] /book/worker_bookings - Found ${bookings.length} bookings for worker_id: ${worker_id}`
@@ -188,9 +207,11 @@ api.get("/worker_bookings", verifyToken, async (req, res) => {
     // Format date and time for each booking
     const formattedBookings = bookings.map((b) => ({
       ...b,
-      date: b.date ? b.date.toISOString().split("T")[0] : "",
+      date: b.date,
       time: b.time ? b.time.slice(0, 5) : "",
     }));
+
+    console.log(formattedBookings);
 
     return res.status(200).json(formattedBookings);
   } catch (err) {
@@ -214,13 +235,14 @@ api.patch("/booking/:id", verifyToken, async (req, res) => {
 
     // Get the booking details (worker_id, date, time)
     const [rows] = await connection.query(
-      "SELECT worker_id, date, time FROM bookings WHERE id = ?",
+      "SELECT worker_id, client_id, DATE_FORMAT(date, '%Y-%m-%d') AS date, time FROM bookings WHERE id = ?",
       [bookingId]
     );
     if (rows.length === 0) {
       return res.status(404).json({ message: "Booking not found" });
     }
-    const { worker_id, date, time } = rows[0];
+    const { worker_id, client_id, date, time } = rows[0];
+    const formattedDate = date; // Already formatted
 
     // Update the status of the selected booking
     const [result] = await connection.query(
@@ -233,6 +255,24 @@ api.patch("/booking/:id", verifyToken, async (req, res) => {
       await connection.query(
         "UPDATE bookings SET status = 'REJECTED' WHERE worker_id = ? AND date = ? AND TIME(time) = TIME(?) AND id != ?",
         [worker_id, date, time, bookingId]
+      );
+    }
+    let message = "";
+    if (status === "CONFIRMED") {
+      message = `Your booking for ${formattedDate} at ${time.slice(
+        0,
+        5
+      )} was CONFIRMED.`;
+    } else if (status === "REJECTED") {
+      message = `Your booking for ${formattedDate} at ${time.slice(
+        0,
+        5
+      )} was REJECTED.`;
+    }
+    if (message) {
+      await connection.query(
+        "INSERT INTO clients_notifications (client_id, message, read_notification, created_at) VALUES (?, ?, 0, NOW())",
+        [client_id, message]
       );
     }
 

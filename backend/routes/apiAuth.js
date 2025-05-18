@@ -140,7 +140,7 @@ router.post("/login", async (req, res) => {
       const token = jwt.sign(
         { id: client.id, email: client.email, role: "client" },
         process.env.JWT_SECRET,
-        { expiresIn: "30s" }
+        { expiresIn: process.env.TOKEN_TTL }
       );
       console.log(`[POST] /auth/login - Client login successful: ${email}`);
       return res.status(200).json({ token });
@@ -173,7 +173,7 @@ router.post("/login", async (req, res) => {
       const token = jwt.sign(
         { id: worker.id, email: worker.email, role: "worker" },
         process.env.JWT_SECRET,
-        { expiresIn: "30s" }
+        { expiresIn: process.env.TOKEN_TTL }
       );
       console.log(`[POST] /auth/login - Worker login successful: ${email}`);
       return res.status(200).json({ token, role: "worker" });

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PageHeaderCSS from "./styling/PageHeader.module.css";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../images/logo1.png";
 import { jwtDecode } from "jwt-decode";
+import axios from "../axios.js";
 
 const PageHeader = () => {
   const token = localStorage.getItem("token");
@@ -21,17 +22,29 @@ const PageHeader = () => {
   const [notifications, setNotifications] = useState([]);
   const [showNotifications, setShowNotifications] = useState(false);
 
+  // Fetch notifications function
   const fetchNotifications = async () => {
     if (!token) return;
     try {
       const res = await axios.get(
-        `http://localhost:3000/notifications?role=${role}&user_id=${userId}`
+        `http://localhost:3000/noti/notifications?role=${role}&user_id=${userId}`
       );
       setNotifications(res.data);
-      setShowNotifications((prev) => !prev);
     } catch (err) {
+      console.log(err);
       alert("Failed to fetch notifications.");
     }
+  };
+
+  // Fetch notifications on mount
+  useEffect(() => {
+    fetchNotifications();
+    // eslint-disable-next-line
+  }, [token, role, userId, showNotifications]);
+
+  // When bell is clicked, just toggle dropdown (notifications already fetched)
+  const handleBellClick = () => {
+    setShowNotifications((prev) => !prev);
   };
 
   const navigate = useNavigate();
@@ -118,11 +131,15 @@ const PageHeader = () => {
                 <li>
                   <button
                     type="button"
-                    className={PageHeaderCSS.icon_button}
-                    onClick={fetchNotifications}>
+                    className={
+                      showNotifications
+                        ? `${PageHeaderCSS.icon_button} ${PageHeaderCSS.icon_button_active}`
+                        : PageHeaderCSS.icon_button
+                    }
+                    onClick={handleBellClick}>
                     <span className="material-icons">notifications</span>
                     <span className={PageHeaderCSS.icon_button__badge}>
-                      {notifications.filter((n) => !n.read).length}
+                      {notifications.filter((n) => !n.read_notification).length}
                     </span>
                   </button>
                   {showNotifications && (
@@ -136,11 +153,37 @@ const PageHeader = () => {
                           <div
                             key={n.id}
                             className={
-                              n.read
+                              n.read_notification
                                 ? PageHeaderCSS.notification
                                 : `${PageHeaderCSS.notification} ${PageHeaderCSS.unread}`
                             }>
-                            {n.message}
+                            <span>{n.message}</span>
+                            {!n.read_notification && (
+                              <button
+                                className={PageHeaderCSS.markReadBtn}
+                                title="Mark as read"
+                                onClick={async () => {
+                                  try {
+                                    await axios.patch(
+                                      `http://localhost:3000/noti/notifications/${n.id}/read`,
+                                      { role }
+                                    );
+                                    setNotifications((prev) =>
+                                      prev.map((notif) =>
+                                        notif.id === n.id
+                                          ? { ...notif, read_notification: 1 }
+                                          : notif
+                                      )
+                                    );
+                                  } catch (err) {
+                                    alert("Failed to mark as read");
+                                  }
+                                }}>
+                                <span className="material-symbols-outlined">
+                                  check_circle
+                                </span>
+                              </button>
+                            )}
                           </div>
                         ))
                       )}
@@ -166,11 +209,15 @@ const PageHeader = () => {
                 <li>
                   <button
                     type="button"
-                    className={PageHeaderCSS.icon_button}
-                    onClick={fetchNotifications}>
+                    className={
+                      showNotifications
+                        ? `${PageHeaderCSS.icon_button} ${PageHeaderCSS.icon_button_active}`
+                        : PageHeaderCSS.icon_button
+                    }
+                    onClick={handleBellClick}>
                     <span className="material-icons">notifications</span>
                     <span className={PageHeaderCSS.icon_button__badge}>
-                      {notifications.filter((n) => !n.read).length}
+                      {notifications.filter((n) => !n.read_notification).length}
                     </span>
                   </button>
                   {showNotifications && (
@@ -184,11 +231,37 @@ const PageHeader = () => {
                           <div
                             key={n.id}
                             className={
-                              n.read
-                                ? PageHeaderCSS.notification
+                              n.read_notification
+                                ? `${PageHeaderCSS.notification} `
                                 : `${PageHeaderCSS.notification} ${PageHeaderCSS.unread}`
                             }>
-                            {n.message}
+                            <span>{n.message}</span>
+                            {!n.read_notification && (
+                              <button
+                                className={PageHeaderCSS.markReadBtn}
+                                title="Mark as read"
+                                onClick={async () => {
+                                  try {
+                                    await axios.patch(
+                                      `http://localhost:3000/noti/notifications/${n.id}/read`,
+                                      { role }
+                                    );
+                                    setNotifications((prev) =>
+                                      prev.map((notif) =>
+                                        notif.id === n.id
+                                          ? { ...notif, read_notification: 1 }
+                                          : notif
+                                      )
+                                    );
+                                  } catch (err) {
+                                    alert("Failed to mark as read");
+                                  }
+                                }}>
+                                <span className="material-symbols-outlined">
+                                  check_circle
+                                </span>
+                              </button>
+                            )}
                           </div>
                         ))
                       )}
