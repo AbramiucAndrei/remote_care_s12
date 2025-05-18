@@ -1,0 +1,158 @@
+.register_container {
+  max-width: 400px;
+  margin: 100px auto 0 auto;
+  padding: 32px 24px;
+
+  background: #e7eaf6;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(56, 89, 139, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register_container h1 {
+  color: #38598b;
+  margin-bottom: 24px;
+  font-size: 2rem;
+}
+
+.register_container form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.register_container label {
+  color: #113f67;
+  font-weight: 500;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.register_container input[type="text"],
+.register_container input[type="email"],
+.register_container input[type="password"] {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #a2a8d3;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #fff;
+  margin-bottom: 8px;
+}
+
+.register_container input[type="radio"] {
+  margin-left: 10px;
+  margin-right: 4px;
+}
+
+.register_container button {
+  margin-top: 12px;
+  padding: 10px 0;
+  background: #38598b;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.register_container button:hover {
+  background-color: #113f67;
+}
+
+.register_container p {
+  margin-top: 18px;
+  color: #38598b;
+  font-size: 1rem;
+}
+
+.register_container a {
+  color: #113f67;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.radio_container {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.radio_label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  font-size: 1rem;
+  user-select: none;
+}
+
+.radio_input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.custom_radio {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 2px solid #a2a8d3;
+  border-radius: 24px;
+  padding: 8px 18px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.radio_icon {
+  font-size: 1.2em;
+}
+
+.radio_text {
+  font-weight: 500;
+  color: #38598b;
+}
+
+.radio_input:checked + .custom_radio {
+  border-color: #38598b;
+  box-shadow: 0 0 0 2px #38598b33;
+  background: #e7eaf6;
+}
+
+.radio_input:focus + .custom_radio {
+  border-color: #113f67;
+  box-shadow: 0 0 0 2px #113f6733;
+}
+
+.dropdown_container {
+  margin: 16px 0;
+  width: 100%;
+}
+.dropdown_container label {
+  color: #113f67;
+  font-weight: 500;
+  margin-bottom: 6px;
+  display: block;
+}
+.dropdown_container select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #a2a8d3;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #fff;
+}
+
+p.error_message {
+  color: red;
+  margin-bottom: 12px;
+}

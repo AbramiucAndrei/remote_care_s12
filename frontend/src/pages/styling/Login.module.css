@@ -1,0 +1,133 @@
+.login_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin: 100px auto 0 auto;
+  max-width: 400px;
+  padding: 32px 24px;
+
+  background-color: #e7eaf6;
+  border-radius: 16px;
+}
+
+.login_container .error_message {
+  color: red;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.login_container h1 {
+  color: #38598b;
+  margin-bottom: 24px;
+  font-size: 2rem;
+}
+
+.login_container form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.login_container label {
+  color: #113f67;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.login_container input[type="text"],
+.login_container input[type="email"],
+.login_container input[type="password"] {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #a2a8d3;
+  font-size: 1rem;
+  background-color: #fff;
+  margin-bottom: 8px;
+}
+
+.login_container button {
+  border-radius: 8px;
+  color: #fff;
+  border: none;
+  background-color: #38598b;
+  font-weight: 600;
+  padding: 10px 0;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: background-color 0.2s;
+}
+.login_container button:hover {
+  background-color: #113f67;
+}
+
+.login_container p {
+  margin-top: 18px;
+  color: #38598b;
+  font-size: 1rem;
+}
+
+.login_container a {
+  color: #113f67;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.radio_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 24px;
+  /*margin-bottom: 12px;*/
+}
+
+.radio_label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  font-size: 1rem;
+  position: relative;
+}
+
+.radio_input {
+  opacity: 0;
+  position: absolute;
+  height: 0;
+  width: 0;
+}
+
+.custom_radio {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 2px solid #a2a8d3;
+  border-radius: 24px;
+  padding: 8px 18px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.radio_icon {
+  font-size: 1.2em;
+}
+.radio_text {
+  font-weight: 500;
+  color: #38598b;
+}
+
+.radio_input:checked + .custom_radio {
+  border-color: #38598b;
+  box-shadow: 0 0 0 2px #38598b33;
+  background-color: #e7eaf6;
+}
+.radio_input:focus + .custom_radio {
+  border-color: #113f67;
+  box-shadow: 0 0 0 2px #113f6733;
+}

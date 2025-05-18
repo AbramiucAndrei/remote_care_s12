@@ -1,0 +1,155 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+}
+
+.logo_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: auto;
+}
+.logo_link {
+  /* margin-right: auto;
+  padding: 5px 5px; */
+  margin: 5px;
+}
+
+.logo_img {
+  height: 10vh;
+  width: auto;
+}
+
+.page_name {
+  color: white;
+  opacity: 0.8;
+  margin-left: 10px;
+}
+
+.links_list {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+}
+
+header {
+  /* position: absolute;
+  top: 0;
+  left: 0; */
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #113f67;
+  z-index: 10;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.link {
+  display: inline-block;
+  color: white;
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #38598b;
+  border-radius: 8px;
+  transition: border-radius 300ms ease-in-out;
+  text-decoration: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.link:hover,
+.link.active {
+  background-color: white;
+  color: #38598b;
+  border-radius: 59% 41% 64% 36% / 15% 100% 0% 85%;
+}
+.logout {
+  background-color: rgba(238, 30, 30, 0.829);
+}
+.logout:hover {
+  background-color: rgba(238, 30, 30, 0.829);
+  color: white;
+}
+
+.icon_button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  color: #333333;
+  background: #dddddd;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+}
+
+.icon_button:hover {
+  cursor: pointer;
+}
+
+.icon_button:active {
+  background: #cccccc;
+}
+
+.icon_button__badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 25px;
+  height: 25px;
+  background: red;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.notifications_dropdown {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background: #fff;
+  min-width: 220px;
+  max-width: 320px;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px #38598b33;
+  z-index: 100;
+  padding: 10px 0;
+}
+
+.notification {
+  padding: 12px 18px;
+  color: #38598b;
+  border-bottom: 1px solid #e7eaf6;
+  background: #f7f8fa;
+}
+
+.notification:last-child {
+  border-bottom: none;
+}
+
+.unread {
+  background: #e7eaf6;
+  font-weight: bold;
+}
+
+.notification_empty {
+  padding: 16px;
+  color: #aaa;
+  text-align: center;
+}

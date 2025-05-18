@@ -1,0 +1,135 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e7eaf6 0%, #a2a8d3 100%);
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.hero {
+  text-align: center;
+  margin: 60px 0;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  color: #113f67;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.tagline {
+  font-size: 1.5rem;
+  color: #38598b;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.services {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 40px auto;
+  max-width: 800px;
+}
+
+.servicesList {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  color: #38598b;
+  font-size: 1.2rem;
+}
+
+.cards {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 60px 0;
+}
+
+.card {
+  background: white;
+  position: relative;
+  border-radius: 20px;
+  padding: 15px 40px 50px 40px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(17, 63, 103, 0.1);
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.icon {
+  font-size: 3rem;
+  color: #38598b;
+  margin-bottom: 20px;
+}
+
+.card h2 {
+  color: #113f67;
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.card p {
+  color: #38598b;
+  margin-bottom: 30px;
+}
+
+.actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: absolute;
+  bottom: 10px;
+}
+
+.button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.button.primary {
+  background: #38598b;
+  color: white;
+}
+
+.button:not(.primary) {
+  background: #e7eaf6;
+  color: #38598b;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(17, 63, 103, 0.15);
+}

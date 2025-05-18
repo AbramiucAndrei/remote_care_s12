@@ -1,0 +1,84 @@
+.container {
+  max-width: 480px;
+  margin: 120px auto 0 auto;
+  background: #e7eaf6;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(56, 89, 139, 0.1);
+  padding: 36px 28px 32px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  color: #38598b;
+  margin-bottom: 24px;
+  font-size: 2rem;
+}
+
+.formGroup {
+  width: 100%;
+  margin-bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.formGroup label {
+  color: #113f67;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.formGroup select,
+.formGroup input[type="date"] {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #a2a8d3;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #fff;
+}
+
+.hoursList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.hourButton,
+.hourButtonSelected {
+  padding: 8px 18px;
+  border-radius: 6px;
+  border: none;
+  background: #f7f8fa;
+  box-shadow: 0 4px 24px rgba(56, 89, 139, 0.3);
+  color: #38598b;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.hourButtonSelected {
+  background: #38598b;
+  color: #fff;
+}
+
+.bookButton {
+  margin-top: 24px;
+  width: 100%;
+  padding: 12px 0;
+  background: #38598b;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.bookButton:hover {
+  background: #113f67;
+}

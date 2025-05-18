@@ -1,0 +1,64 @@
+.bookingCard {
+  background: #f7f8fa;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px #38598b22;
+  padding: 18px 22px;
+  margin-bottom: 18px;
+  width: 100%;
+}
+
+.service {
+  color: #38598b;
+  margin-bottom: 8px;
+}
+
+.confirmed {
+  color: #2ecc40;
+  font-weight: bold;
+}
+
+.pending {
+  color: #ff9800;
+  font-weight: bold;
+}
+
+.rejected {
+  color: #e53935;
+  font-weight: bold;
+}
+
+.actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 12px;
+}
+
+.cancelBtn {
+  background: #e53935;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 18px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.confirmBtn {
+  background: #2ecc40;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 18px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.rejectBtn {
+  background: #ff9800;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 18px;
+  font-weight: 500;
+  cursor: pointer;
+}
